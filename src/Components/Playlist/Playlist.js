@@ -2,15 +2,17 @@ import React from 'react';
 import './Playlist.css';
 import TrackList from '../TrackList/TrackList';
 
+// Holds list of tracks to save to Spotify
 class Playlist extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.handleNameChange.bind(this);
+    // Binds
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
 
   handleNameChange(event) {
-    this.props.onNameChange(event.target.value)
+    this.props.onNameChange(event.target.value);
   }
 
   render() {
@@ -20,7 +22,7 @@ class Playlist extends React.Component {
         < TrackList
           tracks={this.props.playlistTracks}
           onRemove={this.props.onRemove}
-          isRemoval='true'/>
+          isRemoval={true}/>
         <a className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</a>
       </div>
     );
