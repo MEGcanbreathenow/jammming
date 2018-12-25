@@ -2,6 +2,7 @@ import React from 'react';
 import './TrackList.css';
 import Track from '../Track/Track'
 
+// Builds list of tracks from Track Component
 class TrackList extends React.Component {
   render() {
     return (
@@ -11,6 +12,7 @@ class TrackList extends React.Component {
             key={track.id}
             track={track}
             onAdd={this.props.onAdd}
+            isRemoval={this.props.isRemoval}
             onRemove={this.props.onRemove} />
           })
         }
