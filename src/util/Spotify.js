@@ -8,24 +8,25 @@ const Spotify = {
       return accessToken;
     }
 
-    // implicit Grant Flo
-    const urlAccessToken = window.location.href.match(/access_token=([^&]*)/)
-    const urlExpiresIn = window.location.href.match(/expires_in=([^&]*)/)
+    // implicit Grant Flow
+    const matchAccessToken = window.location.href.match(/access_token=([^&]*)/)
+    const matchExpiresIn = window.location.href.match(/expires_in=([^&]*)/)
 
-    if (urlAccessToken && urlExpiresIn) {
-      accessToken = urlAccessToken[1];
-      const expiresIn = urlExpiresIn[1];
+    if (matchAccessToken && matchExpiresIn) {
+      accessToken = matchAccessToken[1];
+      const expiresIn = Number(matchExpiresIn[1]);
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
       return accessToken;
     } else {
-      const spotifyUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`
-      window.location = spotifyUrl;
+      const spotifyAuthURI = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`
+      window.location = spotifyAuthURI;
     }
   },
 
   // Handles search functionality
   search(term) {
+    const accessToken = Spotify.getAccessToken();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
     }).then(response => {

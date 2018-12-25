@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchResults: [],
       playlistName: 'New Playlist',
       playlistTracks: [],
-    };
+    }
 
     // Binds
-    this.addTrack.bind(this);
-    this.removeTrack.bind(this);
-    this.updatePlaylistName.bind(this);
-    this.savePlaylist.bind(this);
-    this.search.bind(this);
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
 
   // Checks if track is already on Playlist and adds it to the end if not
   addTrack(track) {
-    if (!this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+    if (!this.state.playlistTracks.find(playlistTrack => playlistTrack.id === track.id)) {
       let tracks = this.state.playlistTracks;
       tracks.push(track);
       this.setState({playlistTracks: tracks});
@@ -34,7 +35,7 @@ class App extends Component {
   // Filters and removes track from playlist
   removeTrack(track) {
     this.setState({
-      playlistTracks: this.state.playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
+      playlistTracks: this.state.playlistTracks.filter(playlistTrack => playlistTrack.id !== track.id)
     });
   }
 
