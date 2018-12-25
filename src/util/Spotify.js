@@ -8,7 +8,7 @@ const Spotify = {
       return accessToken;
     }
 
-    // implicit Grant Flow
+    // implicit Grant Flo
     const urlAccessToken = window.location.href.match(/access_token=([^&]*)/)
     const urlExpiresIn = window.location.href.match(/expires_in=([^&]*)/)
 
